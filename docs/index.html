@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MET-Bench · ICML 2026</title>
+<meta name="description" content="MET-Bench evaluates multimodal entity tracking across Minecraft, Chess, and Shell Game. Results, evaluation code, and open datasets.">
+<meta name="citation_title" content="MET-Bench: Multimodal Entity Tracking for Evaluating the Limitations of Vision-Language and Reasoning Models"><meta name="citation_author" content="Cohen, Vanya"><meta name="citation_author" content="Mooney, Raymond"><meta name="citation_publication_date" content="2026"><meta name="citation_conference_title" content="International Conference on Machine Learning"><meta name="citation_pdf_url" content="https://arxiv.org/pdf/2502.10886">
+<meta property="og:title" content="MET-Bench · ICML 2026"><meta property="og:description" content="Multimodal entity tracking across Minecraft, Chess, and Shell Game."><meta property="og:type" content="website"><meta property="og:url" content="https://vanyacohen.com/MET-Bench/">
+<link rel="canonical" href="https://vanyacohen.com/MET-Bench/"><link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "MET-Bench: Multimodal Entity Tracking for Evaluating the Limitations of Vision-Language and Reasoning Models", "author": [{"@type": "Person", "name": "Vanya Cohen"}, {"@type": "Person", "name": "Raymond Mooney"}], "url": "https://arxiv.org/abs/2502.10886", "isAccessibleForFree": true}</script>
+</head><body>
+<a class="skip" href="#overview">Skip to content</a>
+<header class="hero"><div class="container">
+<h1><span class="project-name">MET-Bench:</span> <span class="paper-title">Multimodal Entity Tracking for Evaluating the Limitations of Vision-Language and Reasoning Models</span></h1>
+<p class="authors">Vanya Cohen &nbsp;·&nbsp; Raymond Mooney</p><p class="affiliation">The University of Texas at Austin</p><p class="conference">ICML 2026</p>
+<nav class="publication-links" aria-label="Research resources"><a href="https://arxiv.org/abs/2502.10886">Paper</a><a href="https://github.com/vanyacohen/MET-Bench">Code</a><a href="#datasets">🤗 Datasets</a><a href="#results">Results</a></nav>
+</div></header>
+<main>
+<section id="overview" class="overview"><div class="container">
+<h2>Can vision-language models track a changing world?</h2>
+<p class="overview-description">Agents need to understand how actions change the world and track the state of entities over time. Across Minecraft, Chess, and Shell Game, VLMs generally track entity state less accurately from visual inputs than from text. MET-Bench measures this gap using parallel text and image versions of entity-tracking tasks.</p>
+<figure class="teaser"><a href="assets/domains.jpg" aria-label="Open the full-resolution MET-Bench overview"><img src="assets/domains.jpg" width="2200" height="480" alt="MET-Bench overview: predict the final state after chess moves, shell swaps, or a Minecraft action, using text or image representations."></a><figcaption>Chess and Shell Game vary the representation of actions; Minecraft varies the representation of the initial state and candidate next states.</figcaption></figure>
+</div></section>
+<section id="results" class="section results"><div class="container">
+<h2>VLMs track entity state better from text than images.</h2>
+<div class="legend" aria-label="Bar colors"><span><i class="text-key"></i>Text</span><span><i class="image-key"></i>Image</span></div>
+<div class="charts">
+<figure><h3>Minecraft</h3><p class="metric">Next-state prediction</p><img src="assets/minecraft-results.svg" width="450" height="585" alt="Minecraft accuracy with text versus image states: Gemma 3 27B IT 51.6 versus 27.8; Qwen3-VL 8B 49.4 versus 28.4; Qwen3-VL 235B 73.0 versus 34.2; GPT-4o 71.0 versus 37.0; Claude Sonnet 4.6 88.4 versus 41.8 percent."></figure>
+<figure><h3>Chess</h3><p class="metric">Board-square accuracy · 10 actions</p><img src="assets/chess-results.svg" width="450" height="585" alt="Chess accuracy with text versus image actions: GPT-4o 94.2 versus 83.4; GPT-4.1 98.1 versus 75.3; Gemini 2.5 Flash 77.0 versus 44.6; Llama 4 Maverick 82.4 versus 61.9; Claude 3.7 Sonnet 99.5 versus 96.2 percent."></figure>
+<figure><h3>Shell Game</h3><p class="metric">Final-position accuracy · 10 actions</p><img src="assets/shell-results.svg" width="450" height="585" alt="Shell Game accuracy with text versus image actions: GPT-4o 98.2 versus 36.6; GPT-4.1 99.8 versus 37.6; Gemini 2.5 Flash 94.0 versus 34.0; Llama 4 Maverick 77.0 versus 34.6; Claude 3.7 Sonnet 100.0 versus 77.4 percent."></figure>
+</div>
+<p class="chart-caption">Selected models with chain-of-thought prompting. Error bars show 95% confidence intervals. <a href="https://arxiv.org/html/2502.10886v3#S4">Full results →</a></p>
+</div></section>
+<section id="datasets" class="section datasets"><div class="container"><h2>Datasets</h2><div class="domains">
+<article><h3><a href="https://huggingface.co/datasets/vanyacohen/MET-Bench-Minecraft">Minecraft</a></h3><p>Predict the next state from an initial state and a text action. Select from four candidates, represented as game-state text or first-person images.</p></article>
+<article><h3><a href="https://huggingface.co/datasets/vanyacohen/MET-Bench-Chess">Chess</a></h3><p>Track a board from its initial FEN through a sequence of moves represented as text or images. Return the final board state as FEN.</p></article>
+<article><h3><a href="https://huggingface.co/datasets/vanyacohen/MET-Bench-Shell">Shell Game</a></h3><p>Track a ball through a sequence of swaps represented as text or images. Return its final position.</p></article></div>
+<p><a href="https://huggingface.co/datasets/vanyacohen/MET-Bench-Minecraft-Trajectories">🤗 Raw Minecraft trajectories</a>: 462 trajectories containing 462,235 observations with screenshots, game-state telemetry, and recorded controls and actions.</p>
+<p>The <a href="https://github.com/vanyacohen/MET-Bench#setup">evaluation code</a> supports OpenAI-compatible APIs and local Hugging Face models. The default evaluation uses ten-action sequences for Chess and Shell Game and next-state prediction tasks for Minecraft.</p>
+</div></section>
+<section id="citation" class="section shaded"><div class="container"><h2>Citation</h2><pre><code>@inproceedings{cohen2026metbench,
+  title={MET-Bench: Multimodal Entity Tracking for Evaluating the Limitations of Vision-Language and Reasoning Models},
+  author={Cohen, Vanya and Mooney, Raymond},
+  booktitle={International Conference on Machine Learning},
+  year={2026},
+  url={https://arxiv.org/abs/2502.10886}
+}</code></pre></div></section></main>
+<footer><p>Page adapted from the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template">Academic Project Page Template</a> and <a href="https://nerfies.github.io/">Nerfies</a>, under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</p></footer>
+</body></html>

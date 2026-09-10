@@ -1,0 +1,6 @@
+datasets>=4.8,<5
+huggingface-hub>=0.34,<2
+openai>=1.100,<3
+Pillow>=11,<13
+python-chess>=1.999,<2
+statsmodels>=0.14,<0.15
