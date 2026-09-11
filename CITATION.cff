@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use MET-Bench, please cite the paper below."
+title: "MET-Bench"
+type: software
+authors:
+  - family-names: Cohen
+    given-names: Vanya
+  - family-names: Mooney
+    given-names: Raymond
+repository-code: "https://github.com/vanyacohen/MET-Bench"
+url: "https://vanyacohen.com/MET-Bench/"
+license: MIT
+preferred-citation:
+  type: conference-paper
+  title: "MET-Bench: Multimodal Entity Tracking for Evaluating the Limitations of Vision-Language and Reasoning Models"
+  authors:
+    - family-names: Cohen
+      given-names: Vanya
+    - family-names: Mooney
+      given-names: Raymond
+  collection-title: "International Conference on Machine Learning"
+  year: 2026
+  url: "https://arxiv.org/abs/2502.10886"
