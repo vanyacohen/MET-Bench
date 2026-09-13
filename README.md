@@ -6,15 +6,45 @@
 
 ## Setup
 
-Evaluate models on MET-Bench using an OpenAI-compatible API or a local Hugging Face model. The default evaluation uses ten-action sequences for Chess and Shell Game and next-state prediction tasks for Minecraft.
+Run MET-Bench with [lmms-eval](https://github.com/EvolvingLMMs-Lab/lmms-eval). The evaluation covers Minecraft, Chess, and Shell Game with separate text and image tasks. Chess and Shell Game use ten-action sequences; Minecraft uses next-state prediction tasks.
 
-Use Python 3.10 or newer. Clone the repository and install the dependencies:
+Create a Python environment and install the current version from GitHub:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -U git+https://github.com/EvolvingLMMs-Lab/lmms-eval.git
+```
+
+## Evaluate with lmms-eval
+
+For an OpenAI-compatible API, set `OPENAI_API_KEY` in your environment and run:
+
+```bash
+python -m lmms_eval \
+  --model openai \
+  --model_args model_version=gpt-4o-mini \
+  --tasks metbench \
+  --batch_size 1 \
+  --log_samples \
+  --output_path results/metbench
+```
+
+Replace `gpt-4o-mini` with your model ID. For another compatible provider, also set `OPENAI_API_BASE`. The complete evaluation requires a model that supports text and multiple images. Results and sample outputs are saved to `results/metbench`.
+
+See the [MET-Bench task documentation](https://github.com/EvolvingLMMs-Lab/lmms-eval/tree/main/lmms_eval/tasks/metbench) for task names and additional options.
+
+## Standalone evaluator
+
+Alternatively, use this repository's evaluator with an OpenAI-compatible API or a local 🤗 Hugging Face model. Credentials are read from the environment.
+
+### Setup
+
+Use Python 3.10 or newer. In your Python environment, clone the repository and install the dependencies:
 
 ```bash
 git clone https://github.com/vanyacohen/MET-Bench.git
 cd MET-Bench
-python -m venv .venv
-source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
@@ -24,7 +54,7 @@ For local 🤗 Hugging Face models:
 pip install -r requirements-hf.txt
 ```
 
-## Evaluate an API model
+### Evaluate an API model
 
 Set `OPENAI_API_KEY` in your environment, then run:
 
@@ -58,7 +88,7 @@ To check your API configuration with two examples per domain and modality:
 python evaluate.py run --model gpt-5.6-sol --temperature omit --reasoning-effort low --limit 2 --output results/quick-check
 ```
 
-## Evaluate a 🤗 Hugging Face model
+### Evaluate a 🤗 Hugging Face model
 
 For a vision-language model:
 
@@ -85,7 +115,7 @@ Set `HF_TOKEN` in your environment to access gated Hugging Face models.
 
 Use `--domains minecraft chess shell` to select domains and `--modalities text` or `--modalities image` to select inputs. Run `python evaluate.py run --help` for all options.
 
-## Results and resume
+### Results and resume
 
 A run writes:
 
@@ -102,7 +132,7 @@ Rescore saved responses without calling the model:
 python evaluate.py score results/gpt-5.6-sol/chess-text.jsonl
 ```
 
-## Tests
+### Tests
 
 ```bash
 python -m unittest discover -s tests -v

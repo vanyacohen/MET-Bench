@@ -34,7 +34,9 @@
 <article><h3><a href="https://huggingface.co/datasets/vanyacohen/MET-Bench-Chess">Chess</a></h3><p>Track a board from its initial FEN through a sequence of moves represented as text or images. Return the final board state as FEN.</p></article>
 <article><h3><a href="https://huggingface.co/datasets/vanyacohen/MET-Bench-Shell">Shell Game</a></h3><p>Track a ball through a sequence of swaps represented as text or images. Return its final position.</p></article></div>
 <p><a href="https://huggingface.co/datasets/vanyacohen/MET-Bench-Minecraft-Trajectories">🤗 Raw Minecraft trajectories</a>: 462 trajectories containing 462,235 observations with screenshots, game-state telemetry, and recorded controls and actions.</p>
-<p>The <a href="https://github.com/vanyacohen/MET-Bench#setup">evaluation code</a> supports OpenAI-compatible APIs and local Hugging Face models. The default evaluation uses ten-action sequences for Chess and Shell Game and next-state prediction tasks for Minecraft.</p>
+<h3 id="evaluation">Evaluation</h3>
+<p>Run all three domains with text and image inputs using <a href="https://github.com/EvolvingLMMs-Lab/lmms-eval/tree/main/lmms_eval/tasks/metbench">lmms-eval</a>. See the <a href="https://github.com/vanyacohen/MET-Bench#setup">setup and evaluation instructions</a> to get started.</p>
+<p>Alternatively, the <a href="https://github.com/vanyacohen/MET-Bench#standalone-evaluator">standalone evaluator</a> supports OpenAI-compatible APIs and local Hugging Face models. Both options use ten-action sequences for Chess and Shell Game and next-state prediction tasks for Minecraft.</p>
 </div></section>
 <section id="citation" class="section shaded"><div class="container"><h2>Citation</h2><pre><code>@inproceedings{cohen2026metbench,
   title={MET-Bench: Multimodal Entity Tracking for Evaluating the Limitations of Vision-Language and Reasoning Models},
